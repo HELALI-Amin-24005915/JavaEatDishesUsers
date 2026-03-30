@@ -44,3 +44,7 @@ build/
 
 # Fichier de log
 *.log
+
+### Fichiers d'environnement ###
+.env
+*.env
