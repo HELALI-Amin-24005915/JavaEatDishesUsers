@@ -32,4 +32,20 @@ public class UserResource {
     public Response addUser(User user) {
         return userService.createUser(user) ? Response.status(Response.Status.CREATED).entity(user).build() : Response.status(Response.Status.BAD_REQUEST).build();
     }
+
+    @PUT
+    @Path("/{id}")
+    public Response updateUser(@PathParam("id") String id, User user) {
+        return userService.updateUser(id, user) ?
+                Response.ok(user).build() :
+                Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response deleteUser(@PathParam("id") String id) {
+        return userService.deleteUser(id) ?
+                Response.noContent().build() :
+                Response.status(Response.Status.NOT_FOUND).build();
+    }
 }

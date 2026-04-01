@@ -30,4 +30,27 @@ public class DishResource {
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
+
+    @POST
+    public Response addDish(Dish dish) {
+        return dishService.createDish(dish) ?
+                Response.status(Response.Status.CREATED).entity(dish).build() :
+                Response.status(Response.Status.BAD_REQUEST).build();
+    }
+
+    @PUT
+    @Path("/{id}")
+    public Response updateDish(@PathParam("id") int id, Dish dish) {
+        return dishService.updateDish(id, dish) ?
+                Response.ok(dish).build() :
+                Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response deleteDish(@PathParam("id") int id) {
+        return dishService.deleteDish(id) ?
+                Response.noContent().build() :
+                Response.status(Response.Status.NOT_FOUND).build();
+    }
 }
