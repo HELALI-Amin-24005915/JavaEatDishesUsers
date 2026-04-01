@@ -5,11 +5,25 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Provides centralized MariaDB connection management for the Repository layer.
+ * Repository implementations use this utility to access the underlying database.
+ */
 public class DatabaseConnection {
     private static Connection connection = null;
 
+    /**
+     * Prevents instantiation of this utility class.
+     */
     private DatabaseConnection() {}
 
+    /**
+     * Returns an active MariaDB connection.
+     * If no valid connection exists, this method attempts to create one
+     * using environment-backed database configuration.
+     *
+     * @return an open SQL connection, or {@code null} when connection setup fails
+     */
     public static Connection getConnection() {
         try {
             if (connection != null && !connection.isClosed()) {

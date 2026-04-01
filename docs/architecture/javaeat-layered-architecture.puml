@@ -1,0 +1,83 @@
+@startuml JavaEatDishesUsers_Layered_Architecture
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName DejaVu Sans
+
+skinparam package {
+  BorderColor #355C7D
+  BackgroundColor #F7FAFC
+}
+
+skinparam class {
+  BorderColor #2F4F4F
+  BackgroundColor #FFFFFF
+  ArrowColor #2F4F4F
+}
+
+title JavaEatDishesUsers - Layered Architecture (Jakarta EE / Java 21)
+
+package "Resource Layer\n(REST API / JAX-RS)" as resource {
+  class DishResource <<resource>>
+  class UserResource <<resource>>
+  class JavaEatApplication <<bootstrap>>
+}
+
+package "Service Layer\n(Business Rules)" as service {
+  class DishService <<service>>
+  class UserService <<service>>
+}
+
+package "Repository Layer\n(Persistence / MariaDB JDBC)" as repository {
+  interface DishRepositoryInterface <<repository>>
+  interface UserRepositoryInterface <<repository>>
+
+  class DishRepositoryMariadb <<repository>>
+  class UserRepositoryMariadb <<repository>>
+  class DatabaseConnection <<singleton>>
+}
+
+package "Model Layer\n(Domain Entities)" as model {
+  class Dish <<model>>
+  class User <<model>>
+}
+
+JavaEatApplication ..> DishResource : exposes
+JavaEatApplication ..> UserResource : exposes
+
+DishResource --> DishService : delegates
+UserResource --> UserService : delegates
+
+DishService --> DishRepositoryInterface : uses @Inject
+UserService --> UserRepositoryInterface : uses @Inject
+
+DishRepositoryMariadb ..|> DishRepositoryInterface
+UserRepositoryMariadb ..|> UserRepositoryInterface
+
+DishRepositoryMariadb --> DatabaseConnection : getConnection()
+UserRepositoryMariadb --> DatabaseConnection : getConnection()
+
+DishRepositoryMariadb --> Dish : maps rows <-> entity
+UserRepositoryMariadb --> User : maps rows <-> entity
+
+DishService --> Dish : validates business data
+UserService --> User : validates business data
+
+DishResource --> Dish : JSON request/response
+UserResource --> User : JSON request/response
+
+note right of DatabaseConnection
+Singleton-style JDBC access
+Loads DB_URL / DB_USER / DB_PASSWORD
+via dotenv-java with GlassFish VM fallback
+end note
+
+legend left
+<<resource>> REST endpoint layer
+<<service>> Business logic layer
+<<repository>> Data access layer
+<<model>> Domain entity layer
+<<singleton>> Shared DB connection manager
+endlegend
+
+@enduml
