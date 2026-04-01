@@ -1,38 +1,25 @@
-name: CI/CD Javadoc
+name: Java CI (Qualité du code)
 
 on:
   push:
-    branches:
-      - main
-      - master
-  workflow_dispatch:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  javadoc-deploy:
+  build-and-test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout du code
         uses: actions/checkout@v4
 
-      - name: Set up Java 21
+      - name: Configuration de Java 21 (Temurin)
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: "21"
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
 
-      - name: Generate Javadoc
-        run: ./mvnw -B -ntp javadoc:javadoc
-
-      - name: Disable Jekyll for Javadoc
-        run: touch ./target/site/apidocs/.nojekyll
-
-      - name: Deploy Javadoc to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/site/apidocs
-          publish_branch: gh-pages
-          commit_message: "docs: update Javadoc and add .nojekyll"
+      - name: Compilation et Vérification
+        run: mvn -B clean verify
