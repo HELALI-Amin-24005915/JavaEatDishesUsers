@@ -1,39 +1,38 @@
-name: Java CI & Javadoc
+name: CI/CD Javadoc
 
 on:
   push:
-    branches: [ "*" ]
-
-permissions:
-  contents: write # Autorise le bot à pousser la documentation sur le repo
+    branches:
+      - main
+      - master
+  workflow_dispatch:
 
 jobs:
-  build-and-document:
+  javadoc-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-    - name: Checkout du code
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Configuration de Java 21 (Temurin)
-      uses: actions/setup-java@v4
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: maven
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
 
-    - name: Compilation et Vérification (Linter par défaut Maven)
-      # Vérifie que le code compile, exécute les tests, et valide le format
-      run: mvn -B clean verify
+      - name: Generate Javadoc
+        run: ./mvnw -B -ntp javadoc:javadoc
 
-    - name: Génération de la Javadoc
-      # Crée le dossier /target/site/apidocs
-      run: mvn -B javadoc:javadoc
+      - name: Disable Jekyll for Javadoc
+        run: touch ./target/site/apidocs/.nojekyll
 
-    - name: Déploiement de la Javadoc sur GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./target/site/apidocs
-        publish_branch: gh-pages
-        commit_message: "docs: Mise à jour automatique de la Javadoc"
+      - name: Deploy Javadoc to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site/apidocs
+          publish_branch: gh-pages
+          commit_message: "docs: update Javadoc and add .nojekyll"
