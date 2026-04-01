@@ -13,7 +13,7 @@ Le projet suit une architecture en couches stricte afin de séparer clairement l
 
 ## Documentation API
 
-- 🌐 **JavaDoc déployée (GitHub Pages)** : https://g5kf55.github.io/JavaEatDishesUsers/apidocs/
+- 🌐 **JavaDoc déployée (GitHub Pages)** : https://helali-amin-24005915.github.io/JavaEatDishesUsers/apidocs/
 - 📁 **JavaDoc versionnée dans le dépôt** :
 	- `src/docs/apidocs/index.html`
 	- `docs/apidocs/index.html`
