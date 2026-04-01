@@ -14,7 +14,7 @@ Le projet suit une architecture en couches stricte afin de séparer clairement l
 ## Documentation API
 
 - 📁 **JavaDoc versionnée dans le dépôt** :
-	- `src/docs/apidocs/index.html`
+	- `docs/apidocs/index.html`
 ## Architecture en Couches (Layered Architecture)
 
 ### 1. Model
