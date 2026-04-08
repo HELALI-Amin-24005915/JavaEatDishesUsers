@@ -125,6 +125,3 @@ Encadrement : Pr. Frédéric Flouvat (ressource R4.01 - Architecture Logicielle)
 
 Remerciements : merci à Pr. Frédéric Flouvat pour son suivi et ses retours pédagogiques qui ont guidé ce travail.
 
-## Licence
-
-Ce projet est publié sous la licence MIT — voir le fichier `LICENSE` pour les termes complets.
