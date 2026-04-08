@@ -13,8 +13,14 @@ Le projet suit une architecture en couches stricte afin de séparer clairement l
 
 ## Documentation API
 
-- 📁 **JavaDoc versionnée dans le dépôt** :
+- **JavaDoc versionnée dans le dépôt** :
 	- `docs/apidocs/index.html`
+
+## Documentation Technique (Javadoc)
+
+L'integralite du code source de ce microservice (modeles metier, services applicatifs et ressources REST) est documentee de maniere rigoureuse via Javadoc.
+Consultez la version publiee en ligne ici : **[Acceder a la documentation technique](https://helali-amin-24005915.github.io/JavaEatDishesUsers/)**.
+
 ## Architecture en Couches (Layered Architecture)
 
 ### 1. Model
@@ -47,7 +53,7 @@ La couche **Resource** expose les endpoints REST (JAX-RS) :
 
 ## Choix Techniques et Sécurité
 
-- 🔒 **Pattern Singleton** : la connexion base de données est centralisée via une instance réutilisable dans `DatabaseConnection`.
+- **Pattern Singleton** : la connexion base de données est centralisée via une instance réutilisable dans `DatabaseConnection`.
 - **Injection de dépendances (CDI)** : les dépendances inter-couches sont injectées avec `@Inject`.
 - **Prévention des injections SQL** : utilisation de **requêtes préparées JDBC** (`PreparedStatement`) pour toutes les opérations SQL.
 - **Gestion des secrets** : chargement des variables via `dotenv-java` avec **fallback** sur les VM Options GlassFish (`DB_URL`, `DB_USER`, `DB_PASSWORD`).
