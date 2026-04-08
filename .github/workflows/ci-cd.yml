@@ -1,13 +1,14 @@
-name: Java CI (Qualité du code)
+name: Java CI & Javadoc
 
 on:
   push:
     branches: [ "*" ]
-  pull_request:
-    branches: [ "main" ]
+
+permissions:
+  contents: write # Nécessaire pour que le bot puisse créer la branche gh-pages
 
 jobs:
-  build-and-test:
+  build-and-document:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,3 +24,17 @@ jobs:
 
       - name: Compilation et Vérification
         run: mvn -B clean verify
+
+      - name: Génération de la Javadoc
+        run: mvn -B javadoc:javadoc
+
+      - name: Désactiver Jekyll
+        run: touch ./target/site/apidocs/.nojekyll
+
+      - name: Déploiement de la Javadoc sur GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site/apidocs
+          publish_branch: gh-pages
+          commit_message: "docs: déploiement automatique de la Javadoc"
