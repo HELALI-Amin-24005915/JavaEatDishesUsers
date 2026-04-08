@@ -25,18 +25,13 @@ jobs:
       - name: Compilation et Vérification
         run: mvn -B clean verify
 
-      - name: Génération de la Javadoc
-        run: mvn -B javadoc:javadoc
-
       - name: Désactiver Jekyll (Fix)
-        run: |
-          mkdir -p ./target/site/apidocs
-          touch ./target/site/apidocs/.nojekyll
+        run: touch ./docs/apidocs/.nojekyll
 
       - name: Déploiement sur GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/site/apidocs
+          publish_dir: ./docs/apidocs
           publish_branch: gh-pages
-          commit_message: "docs: Ajout de la Javadoc avec .nojekyll"
+          commit_message: "docs: publication de la Javadoc depuis le dossier docs/apidocs"
