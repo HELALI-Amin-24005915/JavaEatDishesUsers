@@ -5,7 +5,7 @@ on:
     branches: [ "*" ]
 
 permissions:
-  contents: write # Nécessaire pour que le bot puisse créer la branche gh-pages
+  contents: write
 
 jobs:
   build-and-document:
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout du code
         uses: actions/checkout@v4
 
-      - name: Configuration de Java 21 (Temurin)
+      - name: Configuration de Java 21
         uses: actions/setup-java@v4
         with:
           java-version: '21'
@@ -28,13 +28,15 @@ jobs:
       - name: Génération de la Javadoc
         run: mvn -B javadoc:javadoc
 
-      - name: Désactiver Jekyll
-        run: touch ./target/site/apidocs/.nojekyll
+      - name: Désactiver Jekyll (Fix)
+        run: |
+          mkdir -p ./target/site/apidocs
+          touch ./target/site/apidocs/.nojekyll
 
-      - name: Déploiement de la Javadoc sur GitHub Pages
+      - name: Déploiement sur GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site/apidocs
           publish_branch: gh-pages
-          commit_message: "docs: déploiement automatique de la Javadoc"
+          commit_message: "docs: Ajout de la Javadoc avec .nojekyll"
