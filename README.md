@@ -13,13 +13,13 @@ Le projet suit une architecture en couches stricte afin de séparer clairement l
 
 ## Documentation API
 
-- **JavaDoc versionnée dans le dépôt** :
-	- `docs/apidocs/index.html`
+- **JavaDoc versionnée dans le dépôt** : `docs/apidocs/index.html`
+- **Documentation publique (GitHub Pages)** : [![Documentation Javadoc](https://img.shields.io/badge/Documentation-JavaDoc-blue.svg)](https://helali-amin-24005915.github.io/JavaEatDishesUsers/)
 
 ## Documentation Technique (Javadoc)
+La documentation Javadoc couvre l'intégralité du code source du projet — modèles métier, services applicatifs, API REST et ressources — avec descriptions des classes, signatures des méthodes et exemples d'utilisation lorsque pertinents.
 
-L'integralite du code source de ce microservice (modeles metier, services applicatifs et ressources REST) est documentee de maniere rigoureuse via Javadoc.
-Consultez la version publiee en ligne ici : **[Acceder a la documentation technique](https://helali-amin-24005915.github.io/JavaEatDishesUsers/)**.
+La version publique est accessible via la section « Documentation API » ci‑dessus.
 
 ## Architecture en Couches (Layered Architecture)
 
@@ -115,5 +115,16 @@ DB_PASSWORD=your_password
 
 ## Contexte Pédagogique
 
-Projet réalisé dans le cadre du module **R4.01 - Architecture Logicielle**.
-L'objectif principal est de démontrer une implémentation propre d'une API REST Jakarta EE basée sur une architecture en couches.
+## Contexte Pédagogique
+
+Projet : **Mise en pratique du patron Microservices** — réalisation demandée dans le cadre du module **R4.01 - Architecture Logicielle**.
+
+Ce projet a été réalisé pour répondre aux objectifs pédagogiques du module, avec un focus sur : conception en couches, séparation des responsabilités, et exposition d'une API REST conforme aux bonnes pratiques Jakarta EE.
+
+Encadrement : Pr. Frédéric Flouvat (ressource R4.01 - Architecture Logicielle).
+
+Remerciements : merci à Pr. Frédéric Flouvat pour son suivi et ses retours pédagogiques qui ont guidé ce travail.
+
+## Licence
+
+Ce projet est publié sous la licence MIT — voir le fichier `LICENSE` pour les termes complets.

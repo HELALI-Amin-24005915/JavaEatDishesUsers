@@ -44,7 +44,7 @@ public class DatabaseConnection {
 
 
             connection = DriverManager.getConnection(url, user, password);
-            System.out.println("✅ Connexion MariaDB réussie !");
+            System.out.println("Connexion MariaDB réussie !");
 
         } catch (Exception e) {
             e.printStackTrace();
