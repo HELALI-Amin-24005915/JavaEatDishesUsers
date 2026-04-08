@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"fr.javaeat.javaeatdishesusers.model"},{"l":"fr.javaeat.javaeatdishesusers.repository"},{"l":"fr.javaeat.javaeatdishesusers.resource"},{"l":"fr.javaeat.javaeatdishesusers.service"}];updateSearchResults();
